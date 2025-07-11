@@ -29,6 +29,7 @@ export class Login {
       next: () => {
         this.loading.set(false);
         this.router.navigate(['/dashboard']);
+        
       },
       error: (error) => {
         this.loading.set(false);
