@@ -1,0 +1,55 @@
+.dashboard {
+  padding: 20px;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+ol {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+li {
+  margin-bottom: 15px;
+}
+
+button {
+  margin-left: 10px;
+  padding: 8px 16px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+pre {
+  background: #f8f9fa;
+  padding: 1rem;
+  border-radius: 4px;
+  overflow: auto;
+}
+
+.done {
+  text-decoration: line-through;
+  color: rgb(170, 168, 168);
+}
+
+.delete {
+  background: red;
+}
+
+.change {
+  background: rgb(255, 174, 0);
+}
+
+.validate {
+  background: #007bff;
+}
+

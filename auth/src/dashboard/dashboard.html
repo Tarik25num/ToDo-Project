@@ -1,5 +1,5 @@
-<p>dashboard works!</p>
-<p>le user est connecté</p>
+<p>Bienvenue {{username}}, vous êtes connecté !</p>
+
 
 <div class="dashboard">
   <header>
@@ -9,7 +9,6 @@
 
   <main>
     @if (isLoggedIn()) {
-      <p>Vous êtes connecté !</p>
       <button (click)="loadData()">Charger des données</button>
 
       @if (data) {
@@ -19,31 +18,32 @@
   </main>
 </div>
 
-<style>
-  .dashboard {
-    padding: 20px;
-  }
+<h2>{{username}}'s ToDo</h2>
 
-  header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 2rem;
-  }
+<form (submit)="addTask()">
+  <input [(ngModel)]="newTaskLabel" name="taskLabel" placeholder="Nouvelle tâche" required />
+  <button type="submit">Ajouter</button>
+</form>
 
-  button {
-    padding: 8px 16px;
-    background: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
+<ol>
+  <li *ngFor="let task of tasks">
 
-  pre {
-    background: #f8f9fa;
-    padding: 1rem;
-    border-radius: 4px;
-    overflow: auto;
-  }
-</style>
+    <ng-container *ngIf="editingTaskId === task.id; else viewMode">
+      <input [(ngModel)]="editedTask" name="editedTask">
+      <button (click)="confirmEdit()">Sauvegarder</button>
+      <button (click)="cancelEdit()" class="delete">Annuler</button>
+    </ng-container>
+
+    <ng-template #viewMode>
+      <span [class.done]="task.done">{{ task.label }}</span>
+      <button (click)="toggleTaskDone(task)" class="validate">
+        {{ task.done ? 'Undone' : 'Done'}}
+      </button>
+      <button (click)="startEdit(task)" class="change">Modifier</button>
+      <button (click)="deleteTask(task.id)" class="delete">Supprimer</button>
+    </ng-template>
+
+  </li>
+</ol>
+
+

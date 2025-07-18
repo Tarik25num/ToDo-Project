@@ -31,44 +31,44 @@ export class AuthService {
    * Connexion utilisateur
    */
   login(email: string, password: string): Observable<LoginResponse> {
-    const credentials: LoginCredentials = { email, password };
+    const credentials: LoginCredentials = { email, password }
     return this.http.post<LoginResponse>(`${this.apiUrl}/login`, credentials)
       .pipe(
         tap((response: LoginResponse) => {
-          console.log(response);
+          console.log(response)
           // Stocker le token
-          localStorage.setItem('token', response.data.token);
-          this.isLoggedIn.set(true);
+          localStorage.setItem('token', response.data.token)
+          this.isLoggedIn.set(true)
         })
-      );
+      )
   }
 
   /**
    * Déconnexion
    */
   logout(): void {
-    localStorage.removeItem('token');
-    this.isLoggedIn.set(false);
-    this.router.navigate(['/login']);
+    localStorage.removeItem('token')
+    this.isLoggedIn.set(false)
+    this.router.navigate(['/login'])
   }
 
   /**
    * Récupérer le token
    */
   getToken(): string | null {
-    return localStorage.getItem('token');
+    return localStorage.getItem('token')
   }
 
   /**
    * Vérifier si on a un token valide
    */
   private hasValidToken(): boolean {
-    const token = this.getToken();
-    if (!token) return false;
+    const token = this.getToken()
+    if (!token) return false
 
     try {
       // Vérifier l'expiration du token
-      const payload = JSON.parse(atob(token.split('.')[1]));
+      const payload = JSON.parse(atob(token.split('.')[1]))
       return payload.exp * 1000 > Date.now();
     } catch {
       return false;

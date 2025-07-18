@@ -1,10 +1,10 @@
-import { HttpInterceptorFn } from '@angular/common/http';
-import { inject } from '@angular/core';
-import {AuthService} from './authservice';
+import { HttpInterceptorFn } from '@angular/common/http'
+import { inject } from '@angular/core'
+import {AuthService} from './authservice'
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
-  const authService = inject(AuthService);
-  const token = authService.getToken();
+  const authService = inject(AuthService)
+  const token = authService.getToken()
 
   // Ajouter le token aux requêtes (sauf login)
   if (token && !req.url.includes('/login')) {
@@ -12,8 +12,8 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
       setHeaders: {
         Authorization: `Bearer ${token}`
       }
-    });
+    })
   }
 
-  return next(req);
+  return next(req)
 };
